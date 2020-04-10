@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+body
+{
+    background-color: #1e3799;
+}
+.menu
+{
+    background-color: #0c2461;
+}
+.texto
+{
+    color: white;
+    font-size: large;
+    margin: 1%;
+}
+.btn
+{
+    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.btn-outline-light:hover
+{
+    color: #0c2461;
+}
+.title
+{
+    color: white;
+}

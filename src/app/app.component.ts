@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Practica02';
+  constructor()
+  {
+  }
+  analyze(cSharpInput)
+  {
+    var entry: String = cSharpInput.value;
+    console.log(entry);
+  }
 }
