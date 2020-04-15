@@ -214,9 +214,6 @@ export class LexicalAnalyzer {
                         else if (this.auxLex == "void") {
                             this.addToken(TokenType.RW_VOID);
                         }
-                        else if (this.auxLex == "main") {
-                            this.addToken(TokenType.RW_MAIN);
-                        }
                         else if (this.auxLex == "if") {
                             this.addToken(TokenType.RW_IF);
                         }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LexicalAnalyzer } from './Analyzers/LexicalAnalyzer';
-import { BrowserStack } from 'protractor/built/driverProviders';
+import { SyntanticAnalyzer } from './Analyzers/SyntaticAnalyzer';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +12,26 @@ export class AppComponent {
   constructor() {
   }
   analyze(cSharpInput) {
-    var input: string = cSharpInput.value;
+    let input: string = cSharpInput.value;
     input += "#";
-    var lexical: LexicalAnalyzer = new LexicalAnalyzer();
+    let lexical: LexicalAnalyzer = new LexicalAnalyzer();
     console.log("Entrada:\n" + input);
     lexical.Analyze(input);
     if (lexical.tokensOut.length > 0) {
       if (!lexical.existsError) {
-        console.log("Sin errores lexicos.");
+        alert("Sin errores lexicos.");
         lexical.showTokens();
+        let syntactic: SyntanticAnalyzer = new SyntanticAnalyzer();
+        syntactic.Parse(lexical.tokensOut);
+        if (!syntactic.ExistsError) {
+          alert("Sin errores sintacticos.\nTodo gud.");
+        }
+        else {
+          alert("Se encontraron errores sintacticos.\nNo es posible realizar la traduccion.");
+        }
       }
       else {
-        console.log("Se encontraron errores lexicos.\nNo se puede iniciar analisis sintactico.");
+        alert("Se encontraron errores lexicos.\nNo se puede iniciar analisis sintactico.");
         lexical.showErrors();
       }
     }
