@@ -98,7 +98,7 @@ export class LexicalAnalyzer {
                     }
                     else if (/:/.test(c)) {
                         this.addCharacter(c);
-                        this.addToken(TokenType.S_SEMICOLON);
+                        this.addToken(TokenType.S_COLON);
                     }
                     else if (/;/.test(c)) {
                         this.addCharacter(c);
@@ -264,7 +264,7 @@ export class LexicalAnalyzer {
                 //A number was received
                 case 2: {
                     //A digit is received
-                    if (/\d/.test(c)) {
+                    if (/\d/.test(c) || /\./.test(c)) {
                         this.addCharacter(c);
                     }
                     else {

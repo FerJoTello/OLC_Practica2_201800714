@@ -71,10 +71,10 @@ export enum TokenType {
 }
 export class Token {
     public Type: TokenType;
-    public Value: String;
+    public Value: string;
     public Row: number;
     public Column: number;
-    constructor(typeToken: TokenType, value: String, row: number, column: number) {
+    constructor(typeToken: TokenType, value: string, row: number, column: number) {
         this.Type = typeToken;
         this.Value = value;
         this.Row = row;

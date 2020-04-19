@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LexicalAnalyzer } from './Analyzers/LexicalAnalyzer';
 import { SyntanticAnalyzer } from './Analyzers/SyntaticAnalyzer';
+import { Translater } from './Analyzers/Translater';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,9 @@ import { SyntanticAnalyzer } from './Analyzers/SyntaticAnalyzer';
 })
 export class AppComponent {
   title = 'Practica02';
+  python = "Un texto desde el ts";
+  html = "";
+  json = "";
   constructor() {
   }
   analyze(cSharpInput) {
@@ -24,7 +28,9 @@ export class AppComponent {
         let syntactic: SyntanticAnalyzer = new SyntanticAnalyzer();
         syntactic.Parse(lexical.tokensOut);
         if (!syntactic.ExistsError) {
-          alert("Sin errores sintacticos.\nTodo gud.");
+          alert("Sin errores sintacticos.\nA continuacion se mostrara la traduccion.");
+          let translater: Translater = new Translater();
+          this.python = translater.Translate(lexical.tokensOut);
         }
         else {
           alert("Se encontraron errores sintacticos.\nNo es posible realizar la traduccion.");

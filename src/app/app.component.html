@@ -28,7 +28,8 @@
         </li>
         <div class="texto"></div>
         <li class="nav-item">
-            <button (click)="analyze(cSharpInput)" class="btn btn-outline-light" aria-haspopup="true" aria-expanded="false">Analizar</button>
+            <button (click)="analyze(cSharpInput)" class="btn btn-outline-light" aria-haspopup="true"
+                aria-expanded="false">Analizar</button>
         </li>
     </ul>
 </header>
@@ -52,7 +53,7 @@
             <div class="row">
                 <div class="col">
                     <h3 class="title">Salida Python</h3>
-                    <textarea readonly class="form-control" rows="9">Texto</textarea>
+                    <textarea readonly class="form-control" rows="9" [(ngModel)]="python">python</textarea>
                 </div>
             </div>
             <div class="row">
