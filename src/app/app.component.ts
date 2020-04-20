@@ -127,6 +127,8 @@ export class AppComponent {
           alert("Sin errores sintacticos.\nA continuacion se mostrara la traduccion.");
           let translater: Translater = new Translater();
           this.python = translater.Translate(lexical.tokensOut);
+          this.html = translater.HtmlString;
+          this.json = translater.JsonString;
         }
         else {
           alert("Se encontraron errores sintacticos.\nNo es posible realizar la traduccion.");

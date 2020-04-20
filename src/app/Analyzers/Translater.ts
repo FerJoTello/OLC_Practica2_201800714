@@ -6,6 +6,8 @@ export class Translater {
     private ActualToken: Token;
     private TokensList: Array<Token>;
     private Translation: string;
+    public HtmlString: string;
+    public JsonString: string;
     private TabCounter: number;
     private SyntaxError: Boolean;
     constructor() {
@@ -13,6 +15,8 @@ export class Translater {
         this.TokensList = new Array<Token>();
         this.SyntaxError = false;
         this.Translation = "";
+        this.HtmlString = "";
+        this.JsonString = "";
         this.TabCounter = 0;
     }
 
@@ -502,6 +506,10 @@ export class Translater {
         this.Parea(TokenType.S_DOT);
         this.Parea(TokenType.RW_WRITE);
         this.Parea(TokenType.S_L_PARENTHESIS);
+        if (this.Compare(TokenType.HTML_STRING) && this.ActualToken.Value.length > 3 && this.TokensList[this.ControlToken + 1].Type == TokenType.S_R_PARENTHESIS) {
+            let htmlString = this.ActualToken.Value;
+            this.AnalyzeHtml(htmlString);
+        }
         this.Translation += "print(" + this.PrintExpression() + ")\n";
         this.Parea(TokenType.S_R_PARENTHESIS);
         this.Parea(TokenType.S_SEMICOLON);
@@ -726,6 +734,100 @@ export class Translater {
         else {
             //epsilon
             return "";
+        }
+    }
+    private AnalyzeHtml(htmlString: string) {
+        let stringArray = htmlString.split(/(>|<)/);
+        let tabs = 0;
+        for (let i = 0; i < stringArray.length; i++) {
+            let tag = stringArray[i];
+            if (tag == "<") {
+                //It's a new tag
+            }
+            else if (/\S/.test(tag) && tag.length != 0 && tag != "<" && tag != ">") {
+                if (stringArray[i - 1] == "<" && stringArray[i + 1] == ">") {
+                    //It's the name of the tag 
+                    if (!tag.startsWith("/")) {
+                        //It's the opening tag
+                        for (let i = 0; i < tabs; i++) {
+                            this.HtmlString += "\t";
+                            this.JsonString += "\t";
+                        }
+                        this.HtmlString += "<" + tag + ">\n";
+
+                        i++;
+                        if (tag != "br") {
+                            tabs++;
+                        }
+                        if (tag.includes("style=\"background:")) {
+                            this.JsonString += "\"" + tag.substr(0, tag.indexOf(" style=\"background:")) + "\":{\n";
+                            for (let i = 0; i < tabs; i++) {
+                                this.JsonString += "\t";
+                            }
+                            this.JsonString += "\"style\":" + tag.substr(tag.indexOf("\"background:")) + ",\n";
+                        }
+                        else {
+                            this.JsonString += "\"" + tag + "\":{\n";
+                        }
+                        if (tag == "br") {
+                            try {
+                                for (let i = 0; i < tabs; i++) {
+                                    this.JsonString += "\t";
+                                }
+                                if (stringArray[i + 4].startsWith("/")) {
+                                    this.JsonString += "}\n";
+                                }
+                                else {
+                                    this.JsonString += "},\n";
+                                }
+                            } catch (error) {
+
+                            }
+                        }
+                    }
+                    else {
+                        //It's the closing tag
+                        tabs--;
+                        for (let i = 0; i < tabs; i++) {
+                            this.HtmlString += "\t";
+                            this.JsonString += "\t";
+                        }
+                        this.HtmlString += "<" + tag + ">\n";
+                        try {
+                            if (stringArray[i + 4].startsWith("/")) {
+                                this.JsonString += "}\n";
+                            }
+                            else {
+                                this.JsonString += "},\n";
+                            }
+                        } catch (error) {
+                            this.JsonString += "}\n";
+                        }
+                        i++;
+                    }
+                }
+                else if (stringArray[i - 1] == ">" && stringArray[i + 1] == "<") {
+                    //It's the TEXT
+                    for (let i = 0; i < tabs; i++) {
+                        this.HtmlString += "\t";
+                        this.JsonString += "\t";
+                    }
+                    this.HtmlString += tag + "\n";
+                    try {
+                        if (stringArray[i + 2].startsWith("/")) {
+                            this.JsonString += "\"texto\":\"" + tag + "\"\n";
+                        }
+                        else {
+                            this.JsonString += "\"texto\":\"" + tag + "\",\n";
+                        }
+                    } catch (error) {
+
+                    }
+                }
+            }
+            else {
+                //Blank split
+            }
         }
     }
 }
