@@ -10,9 +10,11 @@ export class SyntanticAnalyzer {
     //private ActualScope: Scope;
     public ExistsError: Boolean;
     private SyntaxError: Boolean;
+    private HtmlErrors: Array<SyntaxError>;
     constructor() {
         this.ActualToken = null;
         this.TokensList = new Array<Token>();
+        this.HtmlErrors = new Array<SyntaxError>();
         this.ExistsError = false;
         this.SyntaxError = false;
     }
@@ -61,6 +63,8 @@ export class SyntanticAnalyzer {
             else {
                 console.log("Error en token: " + this.ControlToken);
                 alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [" + Token.TokensName[type] + "] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+                let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [" + Token.TokensName[type] + "] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+                this.HtmlErrors.push(syntaxError);
                 this.SyntaxError = true;
                 this.ExistsError = true;
             }
@@ -204,6 +208,8 @@ export class SyntanticAnalyzer {
         else {
             console.log("Error en token: " + this.ControlToken);
             alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [S_COMMA|S_EQUALS|S_SEMICOLON] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]\n");
+            let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [S_COMMA|S_EQUALS|S_SEMICOLON] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+            this.HtmlErrors.push(syntaxError);
             this.ExistsError = true;
             this.SyntaxError = true;
         }
@@ -290,6 +296,8 @@ export class SyntanticAnalyzer {
         else {
             console.log("Error en token: " + this.ControlToken);
             alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [S_L_PARENTHESIS|S_EQUALS] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]\n");
+            let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [S_L_PARENTHESIS|S_EQUALS] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+            this.HtmlErrors.push(syntaxError);
             this.ExistsError = true;
             this.SyntaxError = true;
         }
@@ -321,6 +329,8 @@ export class SyntanticAnalyzer {
         else {
             console.log("Error en token: " + this.ControlToken);
             alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [RW_IF|S_L_CURLY_BRACKET] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]\n");
+            let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [RW_IF|S_L_CURLY_BRACKET] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+            this.HtmlErrors.push(syntaxError);
             this.ExistsError = true;
             this.SyntaxError = true;
         }
@@ -400,6 +410,8 @@ export class SyntanticAnalyzer {
         else {
             console.log("Error en token: " + this.ControlToken);
             alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [INCREASE|DECREASE] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]\n");
+            let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [INCREASE|DECREASE] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+            this.HtmlErrors.push(syntaxError);
             this.ExistsError = true;
             this.SyntaxError = true;
         }
@@ -432,6 +444,8 @@ export class SyntanticAnalyzer {
         else {
             console.log("Error en token: " + this.ControlToken);
             alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [RW_INT|RW_DOUBLE|RW_CHAR|RW_BOOL|RW_STRING] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]\n");
+            let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [RW_INT|RW_DOUBLE|RW_CHAR|RW_BOOL|RW_STRING] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+            this.HtmlErrors.push(syntaxError);
             this.ExistsError = true;
             this.SyntaxError = true;
         }
@@ -571,6 +585,8 @@ export class SyntanticAnalyzer {
             default: {
                 console.log("Error en token: " + this.ControlToken);
                 alert("Error Sintactico\nEn Linea: " + this.ActualToken.Row + ", Caracter: " + this.ActualToken.Column + "\nSe esperaba [ID|NUMBER|STRING|HTML_STRING|RW_TRUE|RW_FALSE|S_MINUS|NOT|S_L_PARENTHESIS] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]\n");
+                let syntaxError: SyntaxError = new SyntaxError(this.ActualToken.Row, this.ActualToken.Column, "Se esperaba [ID|NUMBER|STRING|HTML_STRING|RW_TRUE|RW_FALSE|S_MINUS|NOT|S_L_PARENTHESIS] en lugar de [" + Token.TokensName[this.ActualToken.Type] + ", " + this.ActualToken.Value + "]");
+                this.HtmlErrors.push(syntaxError);
                 this.ExistsError = true;
                 this.SyntaxError = true;
                 break;
@@ -609,5 +625,18 @@ export class SyntanticAnalyzer {
         else {
             //epsilon
         }
+    }
+    public htmlErrors() {
+        return this.HtmlErrors;
+    }
+}
+export class SyntaxError {
+    public Row: number;
+    public Column: number;
+    public Description: string;
+    constructor(row: number, column: number, description: string) {
+        this.Row = row;
+        this.Column = column;
+        this.Description = description;
     }
 }

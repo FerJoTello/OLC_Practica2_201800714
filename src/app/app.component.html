@@ -10,8 +10,6 @@
                 <a class="dropdown-item" href="#">Guardar</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Nueva Pestaña</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Salir</a>
             </div>
         </li>
         <div class="texto"></div>
@@ -19,11 +17,11 @@
             <button class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">Reportes</button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a (click)="savePython()" class="dropdown-item" href="#">Exportar python</a>
+                <a (click)="saveHtml()" class="dropdown-item" href="#">Exportar html</a>
+                <a (click)="saveJson()" class="dropdown-item" href="#">Exportar json</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
+                <a (click)="saveErrorsFile()" class="dropdown-item">Errores</a>
             </div>
         </li>
         <div class="texto"></div>
