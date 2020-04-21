@@ -7,11 +7,9 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item">Abrir</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Guardar</a>
+                <a (click)="saveCSharp()" class="dropdown-item" href="#">Guardar</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Nueva Pestaña</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Salir</a>
             </div>
         </li>
         <div class="texto"></div>
@@ -19,16 +17,17 @@
             <button class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">Reportes</button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a (click)="savePython()" class="dropdown-item" href="#">Exportar python</a>
+                <a (click)="saveHtml()" class="dropdown-item" href="#">Exportar html</a>
+                <a (click)="saveJson()" class="dropdown-item" href="#">Exportar json</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
+                <a (click)="saveErrorsFile()" class="dropdown-item" href="#">Errores</a>
             </div>
         </li>
         <div class="texto"></div>
         <li class="nav-item">
-            <button (click)="analyze(cSharpInput)" class="btn btn-outline-light" aria-haspopup="true" aria-expanded="false">Analizar</button>
+            <button (click)="analyze()" class="btn btn-outline-light" aria-haspopup="true"
+                aria-expanded="false">Analizar</button>
         </li>
     </ul>
 </header>
@@ -39,12 +38,12 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="t1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
-                        aria-selected="true">Pestaña 1</a>
+                        aria-selected="true">{{tabName}}</a>
                 </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="t1">
-                    <textarea class="form-control" rows="16" #cSharpInput></textarea>
+                    <textarea id="cSharpText" class="form-control" rows="18" [(ngModel)]="cSharp">cSharp</textarea>
                 </div>
             </div>
         </div>
@@ -52,7 +51,7 @@
             <div class="row">
                 <div class="col">
                     <h3 class="title">Salida Python</h3>
-                    <textarea readonly class="form-control" rows="9">Texto</textarea>
+                    <textarea readonly class="form-control" rows="9" [(ngModel)]="python">python</textarea>
                 </div>
             </div>
             <div class="row">
@@ -70,10 +69,10 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="html" role="tabpanel" aria-labelledby="html-tab">
-                            <textarea readonly class="form-control" rows="5"></textarea>
+                            <textarea readonly class="form-control" rows="7" [(ngModel)]="html">html</textarea>
                         </div>
                         <div class="tab-pane fade" id="json" role="tabpanel" aria-labelledby="json-tab">
-                            <textarea readonly class="form-control" rows="5"></textarea>
+                            <textarea readonly class="form-control" rows="7" [(ngModel)]="json">json</textarea>
                         </div>
                     </div>
                 </div>
@@ -81,4 +80,7 @@
         </div>
     </div>
 </div>
+<footer class="text-center py-2">
+    © 2020 Copyright: <a href="https://github.com/FerJoTello/">Fernando Tello</a>
+</footer>
 <router-outlet></router-outlet>
