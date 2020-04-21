@@ -551,12 +551,12 @@ export class Translater {
         switch (this.ActualToken.Type) {
             case TokenType.AND: {
                 this.Parea(TokenType.AND);
-                returnedValue = "and " + this.Expression();
+                returnedValue = " and " + this.Expression();
                 return returnedValue;
             }
             case TokenType.OR: {
                 this.Parea(TokenType.OR);
-                returnedValue = "or " + this.Expression();
+                returnedValue = " or " + this.Expression();
                 return returnedValue;
             }
             case TokenType.COMPARISSON: {

@@ -385,9 +385,7 @@ export class SyntanticAnalyzer {
     private While() {
         this.Parea(TokenType.RW_WHILE);
         this.Parea(TokenType.S_L_PARENTHESIS);
-        console.log("while espera expresion");
         this.Expression();
-        console.log("while ya no espera expresion");
         this.Parea(TokenType.S_R_PARENTHESIS);
         this.Brackets();
     }

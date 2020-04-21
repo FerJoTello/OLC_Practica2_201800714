@@ -8,13 +8,20 @@ import { Translater } from './Analyzers/Translater';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+  export class AppComponent {
   title = 'Practica02';
+  tabName = "Pestaña 1";
+  cSharp: string = "";
   python = "";
   html = "";
   json = "";
   errorsOutput: string = "";
   constructor() {
+  }
+  
+  
+  saveCSharp() {
+    this.saveFile(this.cSharp, this.tabName + ".cs");
   }
   saveJson() {
     this.saveFile(this.json, "jsonFile.json");
@@ -111,8 +118,8 @@ export class AppComponent {
       "</body>\n" +
       "</html>";
   }
-  analyze(cSharpInput) {
-    let input: string = cSharpInput.value;
+  analyze() {
+    let input = this.cSharp;
     input += "#";
     let lexical: LexicalAnalyzer = new LexicalAnalyzer();
     console.log("Entrada:\n" + input);
